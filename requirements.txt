@@ -2,4 +2,9 @@ fastapi
 uvicorn
 pydantic
 email-validator
+bcrypt
+python-multipart
+httpx
+PyJWT
+python-dotenv
 
