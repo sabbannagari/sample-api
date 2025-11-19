@@ -25,7 +25,7 @@ jobs:
       - name: Checkout centralized repository
         uses: actions/checkout@v4
         with:
-          repository: OWNER/CENTRALIZED-REPO-NAME  # Replace with your centralized repo
+          repository: sabbannagari/api-automation-with-agentic
           token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}  # Personal Access Token with repo access
           path: centralized-repo
           fetch-depth: 0
