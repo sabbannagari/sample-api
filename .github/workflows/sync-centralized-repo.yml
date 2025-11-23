@@ -27,12 +27,12 @@ jobs:
         with:
           repository: sabbannagari/api-automation-with-agentic
           token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}  
-          path: test_case_generation
+          path: automation
           fetch-depth: 0
 
       - name: Get changes from centralized repository
         run: |
-          cd test_case_generation
+          cd automation
           echo "=== Centralized Repository Information ==="
           echo "Repository: $(git remote get-url origin)"
           echo "Current branch: $(git branch --show-current)"
@@ -63,4 +63,6 @@ jobs:
       - name: Create the TestCases
         run: |
           echo "### create The test cases"
+          cd automation
+          python master.py --task "detect the changes"
           ls
