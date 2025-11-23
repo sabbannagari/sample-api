@@ -63,6 +63,7 @@ jobs:
       - name: Create the TestCases
         run: |
           echo "### create The test cases"
+          ls
+          pwd 
           cd automation
           python master.py --task "detect the changes"
-          ls
