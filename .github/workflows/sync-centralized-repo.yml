@@ -63,5 +63,4 @@ jobs:
       - name: Create the TestCases
         run: |
           echo "### create The test cases"
-          cd test_case_generation
           ls
