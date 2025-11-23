@@ -61,6 +61,8 @@ jobs:
           echo "✅ Successfully checked out centralized repository" >> $GITHUB_STEP_SUMMARY
 
       - name: Create the TestCases
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           echo "### create The test cases"
           ls
