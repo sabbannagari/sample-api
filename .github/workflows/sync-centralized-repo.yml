@@ -58,3 +58,10 @@ jobs:
           echo "**Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ Successfully checked out centralized repository" >> $GITHUB_STEP_SUMMARY
+
+      - name: Create the TestCases
+        run: |
+          echo "### create The test cases"
+          cd api-automation-with-agentic
+          cd automation
+          ls
