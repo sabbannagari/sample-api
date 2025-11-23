@@ -66,5 +66,5 @@ jobs:
           ls
           pwd 
           cd automation/automation
-          echo $ANTHROPIC_API_KEY
+          echo "ENV SECRET IS $ANTHROPIC_API_KEY"
           python master.py --task "detect changes"
