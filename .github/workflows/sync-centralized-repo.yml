@@ -1,4 +1,4 @@
-name: Sync with Centralized Repository
+name: Sync with Centralized Repository Test
 
 # Trigger on push events (which includes commits and merges to branches)
 on:
@@ -20,13 +20,13 @@ jobs:
       - name: Checkout current repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for all branches
+          fetch-depth: 0  
 
       - name: Checkout centralized repository
         uses: actions/checkout@v4
         with:
           repository: sabbannagari/api-automation-with-agentic
-          token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}  # Personal Access Token with repo access
+          token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}  
           path: centralized-repo
           fetch-depth: 0
 
@@ -48,45 +48,6 @@ jobs:
 
           echo "=== Files changed in latest commit ==="
           git diff --name-status HEAD~1 HEAD || echo "No previous commit to compare"
-
-      - name: Compare with current repository
-        run: |
-          echo "=== Current Repository Information ==="
-          echo "Repository: $(git remote get-url origin)"
-          echo "Current branch: $(git branch --show-current)"
-          echo "Latest commit: $(git log -1 --oneline)"
-
-      - name: Copy specific files from centralized repo (optional)
-        run: |
-          # Example: Copy configuration files or specific directories
-          # Uncomment and modify based on your needs
-
-          # cp centralized-repo/config.yml ./config.yml
-          # cp -r centralized-repo/shared-configs ./
-
-          echo "Add your file copy operations here"
-
-      - name: Process changes (optional)
-        run: |
-          # Add any processing logic here
-          # For example: run scripts, update configurations, etc.
-
-          echo "Add your change processing logic here"
-
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-
-          # Check if there are changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "test- testcases generation"
-            git push
-            echo "Changes committed and pushed successfully"
-          fi
 
       - name: Create summary
         run: |
