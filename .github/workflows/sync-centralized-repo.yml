@@ -48,6 +48,7 @@ jobs:
 
           echo "=== Files changed in latest commit ==="
           git diff --name-status HEAD~1 HEAD || echo "No previous commit to compare"
+          ls -larth
 
       - name: Create summary
         run: |
