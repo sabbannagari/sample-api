@@ -63,6 +63,5 @@ jobs:
       - name: Create the TestCases
         run: |
           echo "### create The test cases"
-          cd api-automation-with-agentic
           cd automation
           ls
