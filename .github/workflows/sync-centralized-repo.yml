@@ -66,4 +66,4 @@ jobs:
           ls
           pwd 
           cd automation
-          python master.py --task "detect the changes"
+          ls
