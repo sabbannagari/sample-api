@@ -32,7 +32,7 @@ jobs:
 
       - name: Get changes from centralized repository
         run: |
-          cd centralized-repo
+          cd test_case_generation
           echo "=== Centralized Repository Information ==="
           echo "Repository: $(git remote get-url origin)"
           echo "Current branch: $(git branch --show-current)"
