@@ -15,7 +15,7 @@ jobs:
   sync-centralized-repo:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.actor }}/agentic-automation:build5-fe6b9f4
+      image: ghcr.io/${{ github.actor }}/agentic-automation:build5-efe72f9
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       options: >-
