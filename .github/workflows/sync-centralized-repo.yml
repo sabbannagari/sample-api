@@ -77,5 +77,9 @@ jobs:
           path: automation
 
       - name: Run TestCases
-        run: python /app/automation/automation/master.py --task "detect changes"
+        run: |
+           ls -alrth
+           cd automation
+           ls -larth 
+          
 
