@@ -11,22 +11,27 @@ on:
     types: [closed]  # Trigger when PR is merged
     branches:
       - main
-
 jobs:
   sync-centralized-repo:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.actor }}/agentic-automation:build5-fe6b9f4
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      options: >-
+        -v ${{ github.workspace }}/automation:/app/automation:rw
 
     steps:
       - name: Checkout current repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  
+          fetch-depth: 0
 
       - name: Checkout centralized repository
         uses: actions/checkout@v4
         with:
           repository: sabbannagari/api-automation-with-agentic
-          token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}  
+          token: ${{ secrets.CENTRALIZED_REPO_TOKEN }}
           path: automation
           fetch-depth: 0
 
@@ -61,12 +66,5 @@ jobs:
           echo "✅ Successfully checked out centralized repository" >> $GITHUB_STEP_SUMMARY
 
       - name: Create the TestCases
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          echo "### create The test cases"
-          ls
-          pwd 
-          cd automation/automation
-          echo "ENV SECRET IS $ANTHROPIC_API_KEY"
-          python master.py --task "detect changes"
+        run: python /app/automation/automation/master.py --task "detect changes"
+
