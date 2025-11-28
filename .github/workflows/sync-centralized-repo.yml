@@ -1,16 +1,16 @@
 name: Sync with Centralized Repository Test
 
-# Trigger on push events (which includes commits and merges to branches)
 on:
   push:
     branches:
       - main
       - develop
-      - '**'  # Trigger on all branches, or specify specific branches
+      - '**'
   pull_request:
-    types: [closed]  # Trigger when PR is merged
+    types: [closed]
     branches:
       - main
+
 jobs:
   sync-centralized-repo:
     runs-on: ubuntu-latest
@@ -35,15 +35,12 @@ jobs:
           echo "Repository: $(git remote get-url origin)"
           echo "Current branch: $(git branch --show-current)"
           echo ""
-
           echo "=== Latest commits in centralized repo ==="
           git log -5 --oneline --decorate
           echo ""
-
           echo "=== Recent changes (last 24 hours) ==="
           git log --since="24 hours ago" --pretty=format:"%h - %an, %ar : %s" || echo "No changes in last 24 hours"
           echo ""
-
           echo "=== Files changed in latest commit ==="
           git diff --name-status HEAD~1 HEAD || echo "No previous commit to compare"
           ls -larth
@@ -58,19 +55,27 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ Successfully checked out centralized repository" >> $GITHUB_STEP_SUMMARY
 
+      - name: Upload centralized repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: centralized-repo
+          path: automation
+
   create-testcases:
-    runs-on: ubuntu-latest
     needs: sync-centralized-repo
+    runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.actor }}/agentic-automation:build5-efe72f9
-      options: >- 
-        -v ${{ github.workspace }}/automation:/app/automation:rw
-        --user $(id -u):$(id -g) 
-     
+      options: -v ${{ github.workspace }}/automation:/app/automation:rw
       env:
         ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
+      - name: Download centralized repo
+        uses: actions/download-artifact@v3
+        with:
+          name: centralized-repo
+          path: automation
+
       - name: Run TestCases
-        run: |
-          cd automation
-          ls -larth   
+        run: python /app/automation/automation/master.py --task "detect changes"
+
