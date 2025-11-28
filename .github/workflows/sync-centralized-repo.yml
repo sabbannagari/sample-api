@@ -60,6 +60,7 @@ jobs:
 
   create-testcases:
     runs-on: ubuntu-latest
+    needs: sync-centralized-repo
     container:
       image: ghcr.io/${{ github.actor }}/agentic-automation:build5-efe72f9
       options: -v ${{ github.workspace }}/automation:/app/automation:rw
