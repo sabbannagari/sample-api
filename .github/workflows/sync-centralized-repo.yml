@@ -81,5 +81,7 @@ jobs:
            ls -alrth
            cd automation
            ls -larth 
+           cd automation
+           ls -alrth
           
 
