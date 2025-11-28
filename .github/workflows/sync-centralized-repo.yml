@@ -59,7 +59,6 @@ jobs:
           echo "✅ Successfully checked out centralized repository" >> $GITHUB_STEP_SUMMARY
 
   create-testcases:
-    needs: checkout-repo
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/${{ github.actor }}/agentic-automation:build5-efe72f9
