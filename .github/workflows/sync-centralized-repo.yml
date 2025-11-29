@@ -83,5 +83,6 @@ jobs:
            ls -larth 
            cd automation
            ls -alrth
+           python /app/automation/automation/master.py --task "detect changes"
           
 
